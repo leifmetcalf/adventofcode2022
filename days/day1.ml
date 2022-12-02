@@ -1,13 +1,18 @@
 open Core
 
 let () =
-  let f (elves, acc) line =
+  let f ((a, b, c) as burdened, acc) line =
     if String.is_empty line then
-      (acc :: elves, 0)
+      if acc > a then
+        ((acc, a, b), 0)
+      else if acc > b then
+        ((a, acc, b), 0)
+      else if acc > c then
+        ((a, b, acc), 0)
+      else
+        (burdened, 0)
     else
-      (elves, acc + int_of_string line)
+      (burdened, acc + int_of_string line)
   in
-  let (elves, acc) = In_channel.fold_lines In_channel.stdin ~init:([], 0) ~f in
-  match List.sort ~compare:Int.descending (acc :: elves) with
-    | a :: b :: c :: _ -> printf "Part 1: %d\nPart 2: %d\n" a (a + b + c)
-    | _ -> print_string "Invalid input"
+  let ((a, b, c), _) = f (In_channel.fold_lines In_channel.stdin ~init:((0, 0, 0), 0) ~f) "" in
+  printf "Part 1: %d\nPart 2: %d\n" a (a + b + c)

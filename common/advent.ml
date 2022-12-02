@@ -6,7 +6,7 @@ let primes n =
   for i = 2 to n do
     if arr.(i) then
       res := i :: !res;
-      let j = ref (i + i) in
+      let j = ref (i * i) in
       while !j <= n do
         arr.(!j) <- false;
         j := !j + i

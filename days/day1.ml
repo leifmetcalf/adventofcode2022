@@ -3,12 +3,14 @@ open Core
 let () =
   let f ((a, b, c) as burdened, acc) line =
     if String.is_empty line then
-      if acc > a then
-        ((acc, a, b), 0)
-      else if acc > b then
-        ((a, acc, b), 0)
-      else if acc > c then
-        ((a, b, acc), 0)
+      if acc > c then
+        if acc > b then
+          if acc > a then
+            ((acc, a, b), 0)
+          else
+            ((a, acc, b), 0)
+        else
+          ((a, b, acc), 0)
       else
         (burdened, 0)
     else

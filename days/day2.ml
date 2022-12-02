@@ -1,13 +1,8 @@
 open Core
 
 let () =
-  let parse_play = function
-    | 'A' -> 0 | 'B' -> 1 | 'C' -> 2
-    | 'X' -> 0 | 'Y' -> 1 | 'Z' -> 2
-    | _ -> failwith "parse failed"
-  in
   let parse_line line = match String.to_list line with
-    | [a; _; b] -> (parse_play a, parse_play b)
+    | [a; _; b] -> (Char.to_int a - 65, Char.to_int b - 88)
     | _ -> failwith "parse failed"
   in
   let lines = List.rev_map (In_channel.input_lines In_channel.stdin) ~f:parse_line in

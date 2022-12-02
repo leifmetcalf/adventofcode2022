@@ -1,4 +1,4 @@
 (executables
- (names day1)
+ (names day1 day2)
  (libraries core advent)
  (preprocess (pps ppx_jane)))

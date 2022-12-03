@@ -9,13 +9,10 @@ let single_intersection lists =
     | _ -> failwith "no single intersection"
 
 let parse_rucksack line =
-  let parse_letter letter =
-    Char.to_int letter + if Char.is_lowercase letter then
-      1 - Char.to_int 'a'
-    else
-      27 - Char.to_int 'A'
+  let f letter =
+    Char.to_int letter - if Char.is_lowercase letter then 96 else 38
   in
-  List.map ~f:parse_letter @@ String.to_list line
+  List.map ~f @@ String.to_list line
 
 let () =
   let lines = In_channel.input_lines In_channel.stdin in
